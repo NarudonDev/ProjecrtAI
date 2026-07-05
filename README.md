@@ -117,6 +117,8 @@ To enable GitHub Pages:
 4. Under `Build and deployment`, set `Source` to `GitHub Actions`.
 5. Push to `master` or run `Deploy GitHub Pages` manually from the `Actions` tab.
 
+The workflow does not enable Pages automatically because GitHub's default `GITHUB_TOKEN` cannot enable Pages for a repository. Pages must be enabled once in the repository settings.
+
 After a successful deploy, GitHub shows the published URL in the workflow summary. For this repository, it will typically be:
 
 ```text
@@ -129,6 +131,8 @@ If the URL shows `404 There isn't a GitHub Pages site here`, check these items:
 2. The `Deploy GitHub Pages` workflow must finish successfully.
 3. Wait 1-3 minutes after the workflow succeeds before refreshing the Pages URL.
 4. Use the exact repository path: `/ProjecrtAI/`.
+
+If the workflow shows `Get Pages site failed`, Pages is not enabled yet. Open `Settings` -> `Pages` and set `Source` to `GitHub Actions`, then rerun the workflow.
 
 ## Project Layout
 
