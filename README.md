@@ -123,6 +123,13 @@ After a successful deploy, GitHub shows the published URL in the workflow summar
 https://narudondev.github.io/ProjecrtAI/
 ```
 
+If the URL shows `404 There isn't a GitHub Pages site here`, check these items:
+
+1. `Settings` -> `Pages` -> `Source` must be `GitHub Actions`.
+2. The `Deploy GitHub Pages` workflow must finish successfully.
+3. Wait 1-3 minutes after the workflow succeeds before refreshing the Pages URL.
+4. Use the exact repository path: `/ProjecrtAI/`.
+
 ## Project Layout
 
 ```text
