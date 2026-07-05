@@ -62,13 +62,16 @@ npm start
 
 ## GitHub Actions
 
-The workflow file is located at:
+Workflow files are located at:
 
 ```text
 .github/workflows/ci.yml
+.github/workflows/deploy-pages.yml
 ```
 
-It runs automatically on:
+### CI
+
+The CI workflow runs automatically on:
 
 - Push to `main` or `master`
 - Pull request targeting `main` or `master`
@@ -94,6 +97,31 @@ The CI job does this:
 5. Run it manually with `Run workflow`, or push to `main`/`master` to trigger it automatically.
 
 If the workflow fails, open the failed run and check the failing step logs. The most likely issues are dependency installation errors, build errors, or the server not starting on port `5000`.
+
+### Deploy To GitHub Pages
+
+The deploy workflow builds the frontend and publishes `client/dist` to GitHub Pages.
+
+It runs automatically on:
+
+- Push to `main` or `master`
+- Manual run from the GitHub Actions tab
+
+Important: GitHub Pages is static hosting. It deploys the React frontend only. The Express backend is not deployed by this workflow.
+
+To enable GitHub Pages:
+
+1. Open the GitHub repository.
+2. Go to `Settings`.
+3. Go to `Pages`.
+4. Under `Build and deployment`, set `Source` to `GitHub Actions`.
+5. Push to `master` or run `Deploy GitHub Pages` manually from the `Actions` tab.
+
+After a successful deploy, GitHub shows the published URL in the workflow summary. For this repository, it will typically be:
+
+```text
+https://narudondev.github.io/ProjecrtAI/
+```
 
 ## Project Layout
 
