@@ -100,7 +100,7 @@ If the workflow fails, open the failed run and check the failing step logs. The 
 
 ### Deploy To GitHub Pages
 
-The deploy workflow builds the frontend and publishes `client/dist` to the `gh-pages` branch.
+The deploy workflow builds the frontend and publishes `client/dist` with GitHub Pages Actions.
 
 It runs automatically on:
 
@@ -112,13 +112,10 @@ Important: GitHub Pages is static hosting. It deploys the React frontend only. T
 To enable GitHub Pages:
 
 1. Open the GitHub repository.
-2. Go to `Settings` -> `Actions` -> `General`.
-3. Under `Workflow permissions`, select `Read and write permissions`.
+2. Go to `Settings` -> `Pages`.
+3. Under `Build and deployment`, set `Source` to `GitHub Actions`.
 4. Go to the `Actions` tab.
 5. Run `Deploy GitHub Pages` manually, or push to `master`.
-6. After the workflow creates the `gh-pages` branch, go to `Settings` -> `Pages`.
-7. Under `Build and deployment`, set `Source` to `Deploy from a branch`.
-8. Select branch `gh-pages` and folder `/ (root)`.
 
 After a successful deploy, GitHub shows the published URL in the workflow summary. For this repository, it will typically be:
 
@@ -128,13 +125,12 @@ https://narudondev.github.io/ProjecrtAI/
 
 If the URL shows `404 There isn't a GitHub Pages site here`, check these items:
 
-1. `Settings` -> `Pages` -> `Source` must be `Deploy from a branch`.
-2. The selected branch must be `gh-pages` and folder must be `/ (root)`.
-3. The `Deploy GitHub Pages` workflow must finish successfully and create/update the `gh-pages` branch.
-4. Wait 1-3 minutes after the workflow succeeds before refreshing the Pages URL.
-5. Use the exact repository path: `/ProjecrtAI/`.
+1. `Settings` -> `Pages` -> `Source` must be `GitHub Actions`.
+2. The `Deploy GitHub Pages` workflow must finish successfully.
+3. Wait 1-3 minutes after the workflow succeeds before refreshing the Pages URL.
+4. Use the exact repository path: `/ProjecrtAI/`.
 
-If the workflow cannot push to `gh-pages`, check:
+If the workflow cannot deploy, check:
 
 1. `Settings` -> `Actions` -> `General`.
 2. Under `Workflow permissions`, select `Read and write permissions`.
