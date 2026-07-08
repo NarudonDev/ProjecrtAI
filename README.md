@@ -159,6 +159,26 @@ Password: projecrtai_password
 Database: projecrtai
 ```
 
+Open phpMyAdmin:
+
+```bash
+docker compose up -d phpmyadmin
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8082
+```
+
+phpMyAdmin login:
+
+```text
+Server: mysql
+Username: projecrtai_user
+Password: projecrtai_password
+```
+
 Reset the MySQL data volume:
 
 ```bash
