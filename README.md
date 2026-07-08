@@ -137,6 +137,28 @@ Open a MySQL shell:
 docker compose exec mysql mysql -uprojecrtai_user -pprojecrtai_password projecrtai
 ```
 
+Open Adminer for browser-based MySQL access:
+
+```bash
+docker compose up -d adminer
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8081
+```
+
+Adminer login:
+
+```text
+System: MySQL
+Server: mysql
+Username: projecrtai_user
+Password: projecrtai_password
+Database: projecrtai
+```
+
 Reset the MySQL data volume:
 
 ```bash
