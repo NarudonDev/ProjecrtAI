@@ -31,30 +31,160 @@ a {
 .login-screen {
   display: grid;
   min-height: 100vh;
-  grid-template-columns: minmax(0, 1fr) minmax(380px, 520px);
-  background:
-    radial-gradient(circle at 16% 18%, rgba(20, 184, 166, 0.22), transparent 32%),
-    linear-gradient(135deg, #f8fafc 0%, #eef2f6 52%, #e5ebf1 100%);
+  grid-template-columns: minmax(0, 1.25fr) minmax(390px, 520px);
+  background: #07111f;
 }
 
 .login-visual {
+  position: relative;
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
   padding: clamp(28px, 5vw, 64px);
+  color: #ffffff;
 }
 
-.login-visual h1 {
+.ai-slide-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: opacity 400ms ease;
+}
+
+.ai-slide-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(7, 17, 31, 0.94), rgba(7, 17, 31, 0.64) 42%, rgba(7, 17, 31, 0.18)),
+    linear-gradient(0deg, rgba(7, 17, 31, 0.7), rgba(7, 17, 31, 0.06) 44%, rgba(7, 17, 31, 0.45));
+}
+
+.login-visual-top,
+.ai-slide-copy,
+.ai-slide-controls {
+  position: relative;
+  z-index: 2;
+}
+
+.login-visual-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.login-brand {
+  margin-bottom: 0;
+}
+
+.login-brand strong,
+.login-brand span {
+  color: #ffffff;
+}
+
+.login-brand span {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #e0f2fe;
+  font-size: 0.86rem;
+  font-weight: 900;
+  backdrop-filter: blur(18px);
+}
+
+.ai-badge svg {
+  width: 17px;
+  height: 17px;
+}
+
+.ai-slide-copy {
   max-width: 720px;
-  color: #0f172a;
 }
 
-.login-visual p:last-child {
+.ai-slide-copy .eyebrow {
+  color: #67e8f9;
+}
+
+.ai-slide-copy h1 {
+  max-width: 760px;
+  margin-bottom: 18px;
+  color: #ffffff;
+  font-size: 5.6rem;
+  line-height: 0.92;
+  letter-spacing: 0;
+}
+
+.ai-slide-copy p:last-child {
   max-width: 620px;
   margin-bottom: 0;
-  color: #475569;
-  font-size: 1.05rem;
+  color: rgba(226, 232, 240, 0.9);
+  font-size: 1.08rem;
   line-height: 1.75;
+}
+
+.ai-slide-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+.ai-slide-controls > button {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.ai-slide-controls svg {
+  width: 18px;
+  height: 18px;
+}
+
+.ai-slide-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-slide-dots button {
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.42);
+  cursor: pointer;
+}
+
+.ai-slide-dots button.active {
+  width: 28px;
+  background: #67e8f9;
 }
 
 .login-form-panel {
@@ -62,7 +192,9 @@ a {
   place-items: center;
   border-left: 1px solid rgba(15, 23, 42, 0.08);
   padding: 28px;
-  background: rgba(255, 255, 255, 0.78);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(20, 184, 166, 0.12), transparent 30%),
+    #f8fafc;
   backdrop-filter: blur(22px);
 }
 
@@ -73,7 +205,7 @@ a {
   border: 1px solid rgba(15, 23, 42, 0.1);
   border-radius: 8px;
   padding: 30px;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 24px 70px rgba(15, 23, 42, 0.13);
 }
 
@@ -723,7 +855,32 @@ h1 {
   }
 
   .login-visual {
-    min-height: 280px;
+    min-height: 430px;
+    padding: 22px;
+  }
+
+  .login-visual-top {
+    align-items: flex-start;
+  }
+
+  .ai-badge {
+    min-height: 34px;
+    padding: 0 10px;
+  }
+
+  .ai-slide-copy h1 {
+    max-width: 11ch;
+    font-size: 3.2rem;
+  }
+
+  .ai-slide-copy p:last-child {
+    max-width: 34ch;
+    font-size: 1rem;
+  }
+
+  .ai-slide-controls {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .login-form-panel {

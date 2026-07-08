@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Activity,
   Bell,
   CalendarDays,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Copy,
   Globe2,
   Home,
@@ -15,15 +17,40 @@ import {
   Search,
   Settings,
   ShieldCheck,
+  Sparkles,
   TrendingUp,
   Users
 } from "lucide-react";
 import "./styles.css";
+import aiLoginOne from "./assets/ai-login-1.png";
+import aiLoginTwo from "./assets/ai-login-2.png";
+import aiLoginThree from "./assets/ai-login-3.png";
 
 const mockCredentials = {
   username: "admin@cursorflow.test",
   password: "Admin@1234"
 };
+
+const loginSlides = [
+  {
+    image: aiLoginOne,
+    label: "AI Assistant",
+    title: "AI ช่วยวิเคราะห์การเข้าใช้งานแบบเรียลไทม์",
+    detail: "ตรวจภาพรวม traffic, session และพฤติกรรม login จากหน้าเดียว"
+  },
+  {
+    image: aiLoginTwo,
+    label: "Neural Analytics",
+    title: "มองเห็นข้อมูลเชิงลึกก่อนตัดสินใจ",
+    detail: "สรุปสัญญาณสำคัญจากข้อมูลจำนวนมากให้เข้าใจง่าย"
+  },
+  {
+    image: aiLoginThree,
+    label: "Secure Access",
+    title: "เข้าสู่ระบบอย่างมั่นใจด้วยแนวคิด AI Security",
+    detail: "ออกแบบประสบการณ์ login ให้ทันสมัย ปลอดภัย และพร้อมขยายต่อ"
+  }
+];
 
 const stats = [
   { label: "ผู้เข้าชมวันนี้", value: "24,891", change: "+18.4%", icon: Users },
@@ -45,6 +72,15 @@ function LoginScreen({ onLogin }) {
   const [username, setUsername] = useState(mockCredentials.username);
   const [password, setPassword] = useState(mockCredentials.password);
   const [error, setError] = useState("");
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % loginSlides.length);
+    }, 5200);
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -61,20 +97,65 @@ function LoginScreen({ onLogin }) {
     setError("Username หรือ Password ไม่ถูกต้อง");
   }
 
+  function showPreviousSlide() {
+    setActiveSlide((current) =>
+      current === 0 ? loginSlides.length - 1 : current - 1
+    );
+  }
+
+  function showNextSlide() {
+    setActiveSlide((current) => (current + 1) % loginSlides.length);
+  }
+
+  const slide = loginSlides[activeSlide];
+
   return (
     <main className="login-screen">
       <section className="login-visual">
-        <div className="brand">
-          <div className="brand-mark">C</div>
-          <div>
-            <strong>CursorFlow</strong>
-            <span>Analytics</span>
+        <img className="ai-slide-image" src={slide.image} alt={slide.title} />
+        <div className="ai-slide-shade"></div>
+
+        <div className="login-visual-top">
+          <div className="brand login-brand">
+            <div className="brand-mark">C</div>
+            <div>
+              <strong>CursorFlow</strong>
+              <span>AI Analytics</span>
+            </div>
+          </div>
+
+          <div className="ai-badge">
+            <Sparkles aria-hidden="true" />
+            AI Login
           </div>
         </div>
-        <div>
-          <p className="eyebrow">Mockup access</p>
-          <h1>เข้าสู่ระบบเพื่อดูสถิติการเข้าเว็บ</h1>
-          <p>ใช้บัญชีตัวอย่างเพื่อเข้าสู่หน้า Home, dashboard, traffic และรายการ login ล่าสุด</p>
+
+        <div className="ai-slide-copy">
+          <p className="eyebrow">{slide.label}</p>
+          <h1>{slide.title}</h1>
+          <p>{slide.detail}</p>
+        </div>
+
+        <div className="ai-slide-controls" aria-label="AI image slider controls">
+          <button type="button" onClick={showPreviousSlide} aria-label="Previous AI image">
+            <ChevronLeft aria-hidden="true" />
+          </button>
+
+          <div className="ai-slide-dots">
+            {loginSlides.map((item, index) => (
+              <button
+                className={index === activeSlide ? "active" : ""}
+                type="button"
+                key={item.label}
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Show ${item.label}`}
+              ></button>
+            ))}
+          </div>
+
+          <button type="button" onClick={showNextSlide} aria-label="Next AI image">
+            <ChevronRight aria-hidden="true" />
+          </button>
         </div>
       </section>
 
@@ -82,8 +163,8 @@ function LoginScreen({ onLogin }) {
         <form className="auth-card" onSubmit={handleSubmit}>
           <div>
             <p className="eyebrow">Welcome back</p>
-            <h2>Login</h2>
-            <p>กรอก username และ password mockup</p>
+            <h2>Login to AI Dashboard</h2>
+            <p>กรอก username และ password mockup เพื่อเข้าสู่ระบบ</p>
           </div>
 
           <label className="auth-field">
