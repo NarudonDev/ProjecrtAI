@@ -92,6 +92,57 @@ Stop Compose:
 docker compose down
 ```
 
+### MySQL In Docker
+
+Docker Compose also starts MySQL 8.4 with a persistent Docker volume.
+
+Create a local env file from the example:
+
+```bash
+cp .env.example .env
+```
+
+Start MySQL only:
+
+```bash
+docker compose up -d mysql
+```
+
+Start the app and MySQL together:
+
+```bash
+docker compose up -d --build
+```
+
+Default MySQL connection values:
+
+```text
+Host from host machine: 127.0.0.1
+Port: 3306
+Database: projecrtai
+User: projecrtai_user
+Password: projecrtai_password
+Root password: root_password
+```
+
+Inside the Docker network, the app can reach MySQL at:
+
+```text
+mysql:3306
+```
+
+Open a MySQL shell:
+
+```bash
+docker compose exec mysql mysql -uprojecrtai_user -pprojecrtai_password projecrtai
+```
+
+Reset the MySQL data volume:
+
+```bash
+docker compose down -v
+```
+
 ## Docker Image CI
 
 The `Docker Image` GitHub Actions workflow builds and pushes this image to GitHub Container Registry:
