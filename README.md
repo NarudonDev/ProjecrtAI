@@ -60,6 +60,104 @@ npm run build
 npm start
 ```
 
+## Docker
+
+Build the production image:
+
+```bash
+docker build -t projecrtai:local .
+```
+
+Run the container:
+
+```bash
+docker run --rm -p 5000:5000 --name projecrtai projecrtai:local
+```
+
+Open:
+
+```text
+http://127.0.0.1:5000
+```
+
+Run with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+Stop Compose:
+
+```bash
+docker compose down
+```
+
+## Docker Image CI
+
+The `Docker Image` GitHub Actions workflow builds and pushes this image to GitHub Container Registry:
+
+```text
+ghcr.io/narudondev/projecrtai:latest
+```
+
+It runs on pushes to `main` or `master`, and can also be started manually from the GitHub Actions tab.
+
+If the workflow cannot push the image, check:
+
+1. `Settings` -> `Actions` -> `General`.
+2. Under `Workflow permissions`, select `Read and write permissions`.
+3. Confirm that GitHub Packages is enabled for the repository/account.
+
+## Kubernetes
+
+Kubernetes manifests are in:
+
+```text
+k8s/
+```
+
+The default deployment image is:
+
+```text
+ghcr.io/narudondev/projecrtai:latest
+```
+
+For a local Kubernetes cluster such as Docker Desktop or Minikube, build an image and update the deployment image:
+
+```bash
+docker build -t projecrtai:local .
+kubectl apply -k k8s
+kubectl -n projecrtai set image deployment/projecrtai-web web=projecrtai:local
+kubectl -n projecrtai rollout status deployment/projecrtai-web
+```
+
+Port-forward the service:
+
+```bash
+kubectl -n projecrtai port-forward service/projecrtai-web 8080:80
+```
+
+Open:
+
+```text
+http://127.0.0.1:8080
+```
+
+For a registry-backed deployment, tag and push the image:
+
+```bash
+docker tag projecrtai:local ghcr.io/narudondev/projecrtai:latest
+docker push ghcr.io/narudondev/projecrtai:latest
+kubectl apply -k k8s
+kubectl -n projecrtai rollout restart deployment/projecrtai-web
+```
+
+If your cluster has NGINX Ingress, update `k8s/ingress.yaml` with your real host and apply:
+
+```bash
+kubectl apply -k k8s
+```
+
 ## GitHub Actions
 
 Workflow files are located at:
